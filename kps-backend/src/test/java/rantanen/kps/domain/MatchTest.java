@@ -10,7 +10,8 @@ import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 
 class MatchTest {
     private Player player1 = Player.newPlayer();
@@ -69,5 +70,4 @@ class MatchTest {
         Mockito.verify(mockEventPublisher, times(1)).publish(event.capture());
         assertThat(event.getValue().getResult(), is(finalStatus));
     }
-
 }

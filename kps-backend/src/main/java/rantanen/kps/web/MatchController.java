@@ -3,6 +3,7 @@ package rantanen.kps.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +18,14 @@ public class MatchController {
     @Autowired
     private MatchService matchService;
 
+    private static final String MATCH_ID_PATTERN = "^[a-zA-Z0-9]*$";
+
     @PostMapping("/match/{matchId}")
     public ResponseEntity<String> join(@PathVariable String matchId) {
+        if(StringUtils.isEmpty(matchId) || !matchId.matches(MATCH_ID_PATTERN)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
         Optional<Player> player = matchService.joinMatch(matchId);
 
         if(player.isPresent()) {
