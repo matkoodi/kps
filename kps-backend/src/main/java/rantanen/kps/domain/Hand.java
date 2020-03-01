@@ -8,7 +8,7 @@ import static rantanen.kps.domain.Hand.Shape.*;
 public final class Hand {
     private final Shape shape;
 
-    enum Shape {
+    public enum Shape {
         ROCK, PAPER, SCISSORS;
     }
 
